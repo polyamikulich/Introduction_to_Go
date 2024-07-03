@@ -1,0 +1,1 @@
+Write a function that accepts a string and returns its length without using the built-in len() function.
