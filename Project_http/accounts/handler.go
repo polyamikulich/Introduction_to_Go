@@ -142,7 +142,13 @@ func (h *Handler) ChangeAccount(c echo.Context) error {
 		return c.String(http.StatusNotFound, "account not found")
 	}
 
+	if _, ok := h.accounts[request.NewName]; ok {
+		return c.String(http.StatusConflict, "Account with new name already exists")
+	}
+
 	account.Name = request.NewName
+	delete(h.accounts, request.Name)
+	h.accounts[request.NewName] = account
 
 	return c.NoContent(http.StatusOK)
 }
