@@ -58,7 +58,7 @@ func do(cmd Command) error {
 
 		return nil
 	case "delete":
-		if err := delete(cmd); err != nil {
+		if err := deleteCl(cmd); err != nil {
 			return fmt.Errorf("delete account failed %w", err)
 		}
 
@@ -112,13 +112,13 @@ func get(cmd Command) error {
 	return nil
 }
 
-func delete(cmd Command) error {
+func deleteCl(cmd Command) error {
 	resp, err := http.Get(
 		fmt.Sprintf("http://%s:%d/account/delete?name=%s", cmd.Host, cmd.Port, cmd.Name),
 	)
 
 	if err != nil {
-		return fmt.Errorf("http post failed: %w", err)
+		return fmt.Errorf("server delete failed: %w", err)
 	}
 
 	defer func() {
@@ -154,7 +154,7 @@ func patch(cmd Command) error {
 		bytes.NewReader(data),
 	)
 	if err != nil {
-		return fmt.Errorf("http post failed: %s", err)
+		return fmt.Errorf("server patch failed: %s", err)
 	}
 
 	defer func() {
