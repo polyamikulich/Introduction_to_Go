@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "Go_Project/proto";
+
+service Accounts {
+  rpc CreateAccount (CreateAccountReq) returns (Empty) {}
+
+  rpc GetAccount (GetAccountReq) returns (GetAccountResp) {}
+
+  rpc DeleteAccount (DeleteAccountReq) returns (Empty) {}
+
+  rpc PatchAccount (PatchAccountReq) returns (Empty) {}
+
+  rpc ChangeAccount (ChangeAccountReq) returns (Empty) {}
+}
+
+message Empty {}
+
+message CreateAccountReq {
+  string name = 1;
+  int32  amount = 2;
+}
+
+message GetAccountReq {
+  string name = 1;
+}
+
+message DeleteAccountReq {
+  string name = 1;
+}
+
+message PatchAccountReq {
+  string name = 1;
+  int32  amount = 2;
+}
+
+message ChangeAccountReq {
+  string name = 1;
+  string new_name = 2;
+}
+
+message GetAccountResp {
+  string name = 1;
+  int32 amount = 2;
+}
